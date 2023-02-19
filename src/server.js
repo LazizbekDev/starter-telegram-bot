@@ -1,11 +1,12 @@
 import TelegramBot from "node-telegram-bot-api";
 import axios from "axios";
 import express from "express"
+import {config} from "dotenv"
 
 const app = express()
 app.use(express.json());
-
-const TOKEN = "5415065601:AAG65fYP4AT5ozeVfsfVRDa7jR25UUO6qTE";
+config()
+const TOKEN = process.env.TOKEN
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
