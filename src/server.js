@@ -39,7 +39,6 @@ bot.on('message', async (m) => {
             const res = await download(m?.text);
 
             await bot.sendVideo(id, res?.data?.media)
-            console.log(res?.data?.Type)
 
         } else if (m?.text.startsWith('https://www.instagram.com/p/')) {
             bot.sendMessage(id, "Uzr, lekin hozir rasm yuklaydigan imkoniyatim yo'q :(")
@@ -51,8 +50,6 @@ bot.on('message', async (m) => {
             await bot.sendVideo(id, res?.data?.media, {
                 caption: res?.data?.title
             })
-
-            console.log(res?.data)
         }
 
     } catch (err) {
