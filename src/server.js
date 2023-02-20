@@ -62,6 +62,10 @@ app.get('/', (req, res) => {
     res.send('yuksta api')
 })
 
+app.post('/', (req, res) => {
+    res.send(req.body.x-cyclic)
+})
+
 const PORT = 5000;
 
 app.listen(process.env.PORT || PORT, () => {
