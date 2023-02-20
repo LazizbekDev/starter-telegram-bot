@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-    res.send(req.body.x-cyclic)
+    res.send(req.body.cyclic)
 })
 
 const PORT = 5000;
