@@ -1,14 +1,31 @@
 import TelegramBot from "node-telegram-bot-api";
 import axios from "axios";
 import express from "express"
-import {config} from "dotenv"
+import { config } from "dotenv"
 
 const app = express()
 app.use(express.json());
 config()
 const TOKEN = process.env.TOKEN
+const url = "https://amused-crow-belt.cyclic.app"
 
 const bot = new TelegramBot(TOKEN, { polling: true });
+
+bot.setWebHook(`${url}/bot${TOKEN}`)
+
+app.get('/', (req, res) => {
+    res.send('yuksta api')
+})
+
+app.post('/', (req, res) => {
+    res.send(req.body)
+})
+
+app.post(`/bot${TOKEN}`, (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+});
+
 
 const download = async (url) => {
     const options = {
@@ -56,14 +73,6 @@ bot.on('message', async (m) => {
         bot.sendMessage(id, "Uzr nimadur xatilik beryapti :(")
         console.log(err.response.body?.description)
     }
-})
-
-app.get('/', (req, res) => {
-    res.send('yuksta api')
-})
-
-app.post('/', (req, res) => {
-    res.send(req.body)
 })
 
 const PORT = 5000;
