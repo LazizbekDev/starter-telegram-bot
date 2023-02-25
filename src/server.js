@@ -2,6 +2,7 @@ import TelegramBot from "node-telegram-bot-api";
 import axios from "axios";
 import express from "express"
 import { config } from "dotenv"
+import cron from "node-cron"
 
 const app = express()
 app.use(express.json());
@@ -12,6 +13,10 @@ const url = "https://yukta.onrender.com/"
 const bot = new TelegramBot(TOKEN, { polling: true });
 
 bot.setWebHook(`${url}/bot${TOKEN}`)
+
+cron.schedule('* * * * *', () => {
+    console.log('running a task every minute');
+});
 
 app.get('/', (req, res) => {
     res.send('yuksta api')
