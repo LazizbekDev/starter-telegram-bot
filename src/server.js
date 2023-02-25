@@ -14,8 +14,9 @@ const bot = new TelegramBot(TOKEN, { polling: true });
 
 bot.setWebHook(`${url}/bot${TOKEN}`)
 
-cron.schedule('* * * * *', () => {
-    console.log('running a task every minute');
+cron.schedule('* * * * *', async () => {
+    const res = await axios.get('https://yukta.onrender.com/')
+    console.log(res.data);
 });
 
 app.get('/', (req, res) => {
