@@ -8,11 +8,11 @@ const app = express()
 app.use(express.json());
 config()
 const TOKEN = process.env.TOKEN
-const url = "https://yukta.onrender.com/"
+// const url = "https://yukta.onrender.com/"
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
-bot.setWebHook(`${url}/bot${TOKEN}`)
+// bot.setWebHook(`${url}/bot${TOKEN}`)
 
 cron.schedule('* * * * *', async () => {
     const res = await axios.get('https://yukta.onrender.com/')
@@ -27,10 +27,10 @@ app.post('/', (req, res) => {
     res.send(req.body)
 })
 
-app.post(`/bot${TOKEN}`, (req, res) => {
+/*app.post(`/bot${TOKEN}`, (req, res) => {
     bot.processUpdate(req.body);
     res.sendStatus(200);
-});
+});*/
 
 
 const download = async (url) => {
