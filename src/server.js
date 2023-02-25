@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json());
 config()
 const TOKEN = process.env.TOKEN
-const url = "https://amused-crow-belt.cyclic.app"
+const url = "https://yukta.onrender.com/"
 
 const bot = new TelegramBot(TOKEN, { polling: true });
 
@@ -45,6 +45,24 @@ const download = async (url) => {
     }
 }
 
+const tikTokVideo = async (e) => {
+    const options = {
+        method: 'GET',
+        url: 'https://tiktok-video-no-watermark2.p.rapidapi.com/',
+        params: {url: e, hd: '0'},
+        headers: {
+          'X-RapidAPI-Key': '06fdc64e18mshc6e2868dc26e1c6p1b76e6jsnd8718f1785de',
+          'X-RapidAPI-Host': 'tiktok-video-no-watermark2.p.rapidapi.com'
+        }
+      };
+
+    try {
+        return await axios.request(options)
+    } catch (error) {
+        console.log(error.response.data?.Msg)
+    }
+}
+
 bot.on('message', async (m) => {
     const id = m?.chat?.id;
     try {
@@ -59,6 +77,15 @@ bot.on('message', async (m) => {
 
         } else if (m?.text.startsWith('https://www.instagram.com/p/')) {
             bot.sendMessage(id, "Uzr, lekin hozir rasm yuklaydigan imkoniyatim yo'q :(")
+        } else if (m?.text.startsWith('https://www.tiktok.com/')
+         || m?.text.startsWith("https://vt.tiktok.com/")) {
+            bot.sendMessage(id, "Mmm.. Tiktok, hozir 1 daqiqa... 🕚")
+
+            const res = await tikTokVideo(m?.text);
+
+            await bot.sendVideo(id, res?.data?.data?.play, {
+                caption: res?.data?.data?.title
+            })
         } else {
             bot.sendMessage(id, "Mmm.. hozir 1 daqiqa... 🕚")
 
