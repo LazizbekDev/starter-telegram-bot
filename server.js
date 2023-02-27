@@ -20,9 +20,9 @@ app.get('/', (req, res) => {
 })
 
 setInterval(async() => {
-    const res = await axios.get(URL)
-    console.log(res)
-}, 1000 * 60 * 2)
+    const {data} = await axios.get(URL)
+    console.log(data)
+}, 1000 * 60)
 
 const download = async (url) => {
     const options = {
@@ -56,7 +56,7 @@ const tikTokVideo = async (e) => {
     try {
         return await axios.request(options)
     } catch (error) {
-        console.log(error.response.data?.Msg)
+        console.log(error.response)
     }
 }
 
@@ -79,11 +79,6 @@ bot.on('text', async (ctx) => {
             })
         } else {
             const { data } = await download(text)
-
-            if (!data) {
-                ctx.reply('P.S/ Yopiq accountdan yuklash imkoni bu botda yo\'q')
-                return;
-            }
 
             const { Type, media, title, media_with_thumb: group } = data
             switch (Type) {
