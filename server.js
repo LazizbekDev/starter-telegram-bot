@@ -10,7 +10,7 @@ const TOKEN = process.env.TOKEN
 const URL = process.env.URL
 
 const bot = new Telegraf(TOKEN)
-bot.start((ctx) => ctx.reply('Welcome'))
+bot.start((ctx) => ctx.reply(`Assalomu Alaykum ${ctx.message.from.first_name}, men Yuksta. Instagram video havolasini yuboring`))
 
 app.get('/', (req, res) => {
     res.status(200).json({
