@@ -79,6 +79,12 @@ bot.on('text', async (ctx) => {
             })
         } else {
             const { data } = await download(text)
+
+            if (!data) {
+                ctx.reply('P.S/ Yopiq accountdan yuklash imkoni bu botda yo\'q')
+                return;
+            }
+
             const { Type, media, title, media_with_thumb: group } = data
             switch (Type) {
                 case "Post-Image":
@@ -113,7 +119,7 @@ bot.on('text', async (ctx) => {
                     ctx.replyWithPhoto(media)
                     break;
                 default:
-                    console.log(Type)
+                    ctx.reply('P.S/ Yopiq accountdan yuklash imkoni bu botda yo\'q')
                     break;
             }
         }
